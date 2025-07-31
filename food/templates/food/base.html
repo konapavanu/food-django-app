@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}BaseDocument{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons (optional) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'food/style.css' %}" />
+
+    <style>
+      a {
+        text-decoration: none;
+      }
+
+      .navbar .nav-link {
+        color: #ffffff !important;
+        transition: 0.3s;
+      }
+
+      .navbar .nav-link:hover {
+        color: #00d9ff !important;
+      }
+
+      .alert {
+        margin: 10px 20px;
+      }
+
+      body {
+        background-color: #ddecda;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">🍽️ FoodApp</a>
+        <div class="d-flex align-items-center">
+          <a href="{% url 'food:create_item' %}" class="nav-link mx-2">
+            <i class="bi bi-plus-circle"></i> Add Item
+          </a>
+
+          {% if user.is_authenticated %}
+          <form method="POST" action="{% url 'logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="btn btn-link nav-link mx-2"
+              style="display: inline; border: none; padding: 0"
+            >
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+          </form>
+
+          <a href="{% url 'profile' %}" class="nav-link mx-2">
+            <i class="bi bi-person-circle"></i> Profile
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}" class="nav-link mx-2">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </a>
+          <a href="{% url 'register' %}" class="nav-link mx-2">
+            <i class="bi bi-box-arrow-in-right"></i> Register
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Django Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+      {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Body Content -->
+    <main class="container py-4">{% block body %} {% endblock %}</main>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
