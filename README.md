@@ -1,10 +1,5 @@
 \# Food Django App 🍽️
-
-
-
 This is a Django-based web application for managing food items, user profiles, and authentication.
-
-
 
 \## 🔧 Features
 
@@ -16,7 +11,7 @@ This is a Django-based web application for managing food items, user profiles, a
 
 \- Profile image support
 
-
+-----
 
 \## 📂 Project Structure
 
@@ -34,11 +29,10 @@ mywebsite/
 
 └── manage.py
 
+-----------
 
 
 \## 🚀 Getting Started
-
-
 
 ```bash
 
@@ -50,10 +44,7 @@ python manage.py migrate
 
 python manage.py runserver
 
-
-
-
-
+-------------
 Requirements
 
 Python 3.x
